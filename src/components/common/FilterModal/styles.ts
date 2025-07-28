@@ -1,35 +1,31 @@
 import { withStyles } from "@hooks/withStyles"
 
 export const useStyles = withStyles(({ colors }) => ({
-  container: {
+  fullScreenContainer: {
     flex: 1,
-    margin: 8,
-    borderRadius: 20,
-    backgroundColor: "#FFFFFF",
-    overflow: "hidden",
-    elevation: 3,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
   },
-  imageContainer: {
-    height: 120,
-    justifyContent: "center",
+  header: {
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+    backgroundColor: colors.white,
   },
-  image: {
-    width: "80%",
-    height: "80%",
-    resizeMode: "contain",
+  headerTitle: {
+    marginTop: 24,
+    marginBottom: 18,
+    fontSize: 18,
+    fontWeight: "800",
+    color: colors.textGray,
   },
-  textContainer: {
-    padding: 16,
+  closeButton: {
+    position: "absolute",
+    right: 0,
+    padding: 8,
   },
-  name: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: "#333",
-    textAlign: "center",
+  content: {
+    flex: 1,
+    width: 336,
+    alignSelf: "center",
   },
 }))

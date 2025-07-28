@@ -1,40 +1,59 @@
-import React from "react"
-import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native"
+import React, { memo, useCallback } from "react"
+import { Modal, View, Text, Pressable, SafeAreaView } from "react-native"
+import CourseFilter from "../CoursreFilter"
+import { useStyles } from "./styles"
+import { Close } from "@assets/icons"
 
-interface Props {
+interface FilterModalProps {
+  isVisible: boolean
+  onClose: () => void
   tags: string[]
   selectedTag: string
   onSelectTag: (tag: string) => void
 }
 
-const CourseFilter = ({ tags, selectedTag, onSelectTag }: Props) => {
+const FilterModal = ({
+  isVisible,
+  onClose,
+  tags,
+  selectedTag,
+  onSelectTag,
+}: FilterModalProps) => {
+  const styles = useStyles()
+
+  const handleSelectAndClose = useCallback(
+    (tag: string) => {
+      onSelectTag(tag)
+      onClose()
+    },
+    [onSelectTag, onClose]
+  )
+
   return (
-    <View style={styles.container}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {tags.map((tag) => (
-          <Pressable
-            key={tag}
-            style={[
-              styles.chip,
-              selectedTag === tag ? styles.chipSelected : styles.chipIdle,
-            ]}
-            onPress={() => onSelectTag(tag)}
-          >
-            <Text
-              style={[
-                styles.chipText,
-                selectedTag === tag
-                  ? styles.chipTextSelected
-                  : styles.chipTextIdle,
-              ]}
-            >
-              {tag}
-            </Text>
+    <Modal
+      animationType="slide"
+      transparent={false}
+      visible={isVisible}
+      onRequestClose={onClose}
+      presentationStyle="fullScreen"
+      supportedOrientations={["landscape"]}
+    >
+      <SafeAreaView style={styles.fullScreenContainer}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Выбор Темы</Text>
+          <Pressable onPress={onClose} style={styles.closeButton}>
+            <Close />
           </Pressable>
-        ))}
-      </ScrollView>
-    </View>
+        </View>
+        <View style={styles.content}>
+          <CourseFilter
+            tags={tags}
+            selectedTag={selectedTag}
+            onSelectTag={handleSelectAndClose}
+          />
+        </View>
+      </SafeAreaView>
+    </Modal>
   )
 }
-
-export default React.memo(CourseFilter)
+export default memo(FilterModal)

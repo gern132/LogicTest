@@ -1,3 +1,34 @@
 {
-  "extends": "@react-native/typescript-config"
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "types": ["node", "react-native"],
+    "lib": ["es2019", "dom.iterable"],
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@api": ["./src/api"],
+      "@assets/*": ["./src/assets/*"],
+      "@store": ["./src/store"],
+      "@utils/*": ["./src/utils/*"],
+      "@screens/*": ["./src/screens/*"],
+      "@providers/*": ["./src/providers/*"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@locales/*": ["./src/locales/*"],
+      "@models/*": ["./src/models/*"]
+    }
+  },
+  "exclude": ["node_modules"]
 }
